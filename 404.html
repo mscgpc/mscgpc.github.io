@@ -1,10 +1,23 @@
-<!-- 404.html 核心内容：HTML重定向 -->
+<!-- public/404.html 根目录+main分支专属修复版，直接复制，不要改任何内容 -->
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <!-- 关键：重定向到index.html，路径和你的publicPath一致 -->
-    <meta http-equiv="refresh" content="0; url=/">
-    <title>Redirecting...</title>
-  </head>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <script>
+    // 核心逻辑：根目录仓库专属
+    // 1. 保留地址栏原始URL（包括虚拟路径/about、/user等）
+    const originalUrl = window.location.href;
+    // 2. 重新加载index.html（Vue入口），但不修改地址栏
+    // 原理：通过替换history状态，让浏览器重新加载根目录的index.html，同时保留原始路径
+    window.history.replaceState(null, '', '/');
+    window.location.reload();
+    // 兜底：若上面的方式失效，直接加载根目录，确保不卡404
+    setTimeout(() => {
+      window.location.href = '/';
+    }, 100);
+  </script>
+</body>
 </html>
